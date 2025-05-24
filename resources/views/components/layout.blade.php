@@ -22,9 +22,10 @@
                         <div class="ml-10 flex items-baseline space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             {{-- Using ':' befora attributes evalute thaat attributes instead of providing string --}}
-                            <x-nav-link href="/" :active="request()->is('/')"> Hello </x-nav-link>
-                            <x-nav-link href="/what" :active="request()->is('what')"> What </x-nav-link>
-                            <x-nav-link href="/welcome"> Welcome </x-nav-link>
+                            <x-nav-link href="/" :active="request()->is('/')">Hello</x-nav-link>
+                            <x-nav-link href="/what" :active="request()->is('what')">What</x-nav-link>
+                            <x-nav-link href="/aircraft" :active="request()->is('aircraft')">Aircraft</x-nav-link>
+                            <x-nav-link href="/welcome"> Welcome</x-nav-link>
                         </div>
                     </div>
                 </div>
@@ -85,9 +86,10 @@
         <div class="md:hidden" id="mobile-menu">
             <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <x-nav-link href="/" :active="request()->is('/')"> Hello </x-nav-link>
-                <x-nav-link href="/what" :active="request()->is('what')"> What </x-nav-link>
-                <x-nav-link href="/welcome"> Welcome </x-nav-link>
+                <x-nav-link href="/" :active="request()->is('/')">Hello</x-nav-link>
+                <x-nav-link href="/what" :active="request()->is('what')">What</x-nav-link>
+                <x-nav-link href="/aircraft" :active="request()->is('aircraft')">Aircraft</x-nav-link>
+                <x-nav-link href="/welcome"> Welcome</x-nav-link>
             </div>
             <div class="border-t border-gray-700 pt-4 pb-3">
                 <div class="flex items-center px-5">
@@ -97,7 +99,7 @@
                              alt="">
                     </div>
                     <div class="ml-3">
-                        <div class="text-base/5 font-medium text-white">Ruxury</div>
+                        <div class="text-base/5 font-medium text-white">{{ $name ?? 'Ruxury' }}</div>
                         <div class="text-sm font-medium text-gray-400">akbar@reishandy.my.id</div>
                     </div>
                     <button type="button"
