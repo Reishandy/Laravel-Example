@@ -8,7 +8,8 @@
         <li>Designation: {{ $aircraft->code }}</li>
         <li>Name: {{ $aircraft->name }}</li>
         <li>Type: {{ $aircraft->type }}</li>
-        <li>Manufacturer: {{ $aircraft->manufacturer->name }} - {{ $aircraft->manufacturer->country }}</li>
+        <li>Manufacturer: <span class="text-blue-500 hover:underline">{{ $aircraft->manufacturer->name }}</span>
+            - {{ $aircraft->manufacturer->country }}</li>
     </ul>
 
     <p>Tags: {{ $aircraft->tags->pluck('name')->implode(', ') }}</p>
