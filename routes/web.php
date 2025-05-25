@@ -29,7 +29,6 @@ Route::get('/aircraft/{id}', function ($id){
     return view('aircraft-details', ['aircraft' => $aircraft]);
 });
 
-// TODO: add manufacturer details
 Route::get('/manufacturer/{id}', function ($id){
     $manufacturer = Manufacturer::with('aircrafts')->find($id);
     if (! $manufacturer) abort(404);
