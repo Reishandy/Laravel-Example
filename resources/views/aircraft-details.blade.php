@@ -3,8 +3,8 @@
         Entry page
     </x-slot:heading>
 
-    <h2 class="font-bold text-2xl">{{ $aircraft_details['code'] }}</h2>
+    <h2 class="font-bold text-2xl">{{ $aircraft_details->code }}</h2>
     <p>
-        Is called affectionally as {{ $aircraft_details['name'] }}
+        Is a {{ $aircraft_details->type }} plane and affectionally called as {{ $aircraft_details->name }}
     </p>
 </x-layout>

@@ -2,33 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Arr;
+use Illuminate\Database\Eloquent\Model;
 
-class Aircraft
+class Aircraft extends Model
 {
-    public static function all(): array
-    {
-        return [
-            [
-                'id' => 1,
-                'code' => 'F-16',
-                'name' => 'Viper'
-            ],
-            [
-                'id' => 2,
-                'code' => 'F-22',
-                'name' => 'Raptor'
-            ],
-            [
-                'id' => 3,
-                'code' => 'F-5',
-                'name' => 'Tiger'
-            ]
-        ];
-    }
-
-    public static function find(string $id): ?array
-    {
-        return Arr::first(static::all(), fn($aircraft_details) => $aircraft_details['id'] == $id);
-    }
+//    protected $table = 'aircraft'; // Only if the table name is different from class name
+    protected $fillable = ['code', 'name', 'type'];
 }

@@ -15,7 +15,7 @@ Route::get('/what', function () {
 });
 
 Route::get('/aircraft', function () {
-    return view('aircraft', ['aircraft' => Aircraft::all()]);
+    return view('aircraft', ['aircraft' => Aircraft::all()->sortBy('type')]); // all() is for select *
 });
 
 Route::get('/aircraft/{id}', function ($id){
