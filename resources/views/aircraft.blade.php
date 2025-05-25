@@ -19,5 +19,9 @@
                 </div>
             </div>
         @endforeach
+
+        <div>
+            {{ $aircrafts->links() }}
+        </div>
     </div>
 </x-layout>

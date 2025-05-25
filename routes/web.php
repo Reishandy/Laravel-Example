@@ -16,8 +16,9 @@ Route::get('/what', function () {
 });
 
 Route::get('/aircraft', function () {
-    // Btw get() is just select @
-    $aircafts = Aircraft::with('manufacturer')->get(); // Eager load (also get the relationship)
+    // Eager load with('relationship name)
+
+    $aircafts = Aircraft::with('manufacturer')->paginate(10); // Eager load (also get the relationship)
 
     return view('aircraft', ['aircrafts' => $aircafts]); // ->sortBy('type') for sort
 });
