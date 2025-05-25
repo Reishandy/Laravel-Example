@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Aircraft;
+use App\Models\Manufacturer;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,7 +23,6 @@ Route::get('/aircraft', function () {
 });
 
 Route::get('/aircraft/{id}', function ($id){
-    // Laravel's Array operator
     $aircraft = Aircraft::with('manufacturer')->with('tags')->find($id);
     if (! $aircraft) abort(404);
 
@@ -30,6 +30,12 @@ Route::get('/aircraft/{id}', function ($id){
 });
 
 // TODO: add manufacturer details
+Route::get('/manufacturer/{id}', function ($id){
+    $manufacturer = Manufacturer::with('aircrafts')->find($id);
+    if (! $manufacturer) abort(404);
+
+    return view('manufacturer-details', ['manufacturer' => $manufacturer]);
+});
 
 Route::get('/welcome', function () {
     return view('welcome');

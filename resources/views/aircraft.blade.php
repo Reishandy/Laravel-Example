@@ -5,16 +5,19 @@
 
     <div class="space-y-4">
         @foreach($aircrafts as $aircraft)
-            <a href="/aircraft/{{ $aircraft->id }}"
-               class="block px-4 py-6 border border-gray-400 rounded-lg">
-                <div>
-                    <div class="text-sm text-blue-500">{{ $aircraft->manufacturer->name }}</div>
-
-                    <div class="text-lg">
-                        <span class="font-bold">{{ $aircraft->code }}</span> {{ $aircraft->name}}
-                    </div>
+            <div class="block px-4 py-6 border border-gray-400 rounded-lg hover:bg-gray-300">
+                <div class="text-sm text-blue-500 hover:underline">
+                    <a href="/manufacturer/{{ $aircraft->manufacturer->id }}">
+                        {{ $aircraft->manufacturer->name }}
+                    </a>
                 </div>
-            </a>
+
+                <div class="text-lg">
+                    <a href="/aircraft/{{ $aircraft->id }}">
+                        <span class="font-bold">{{ $aircraft->code }}</span> {{ $aircraft->name}}
+                    </a>
+                </div>
+            </div>
         @endforeach
     </div>
 </x-layout>
