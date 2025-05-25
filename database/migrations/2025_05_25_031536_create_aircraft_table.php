@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('aircraft', function (Blueprint $table) {
             $table->id();
+//            $table->unsignedBigInteger('manufacturer_id');
+            $table->foreignIdFor(\App\Models\Manufacturer::class);
             $table->string('code')->unique();
             $table->string('name');
             $table->string('type');

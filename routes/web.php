@@ -15,7 +15,7 @@ Route::get('/what', function () {
 });
 
 Route::get('/aircraft', function () {
-    return view('aircraft', ['aircraft' => Aircraft::all()->sortBy('type')]); // all() is for select *
+    return view('aircraft', ['aircraft' => Aircraft::all()]); // ->sortBy('type') for sort
 });
 
 Route::get('/aircraft/{id}', function ($id){
@@ -23,7 +23,10 @@ Route::get('/aircraft/{id}', function ($id){
     $aircraft_details = Aircraft::find($id);
     if (! $aircraft_details) abort(404);
 
-    return view('aircraft-details', ['aircraft_details' => $aircraft_details]);
+    return view('aircraft-details', [
+        'aircraft_details' => $aircraft_details,
+        'manufacturer' => $aircraft_details->manufacturer
+    ]);
 });
 
 Route::get('/welcome', function () {
