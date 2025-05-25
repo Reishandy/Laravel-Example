@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Aircraft;
 use App\Models\Manufacturer;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AircraftSeeder extends Seeder

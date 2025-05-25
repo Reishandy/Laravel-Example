@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Manufacturer;
-use Database\Factories\ManufacturerFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ManufacturerSeeder extends Seeder

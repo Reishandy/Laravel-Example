@@ -16,6 +16,6 @@ class Aircraft extends Model
     // Relationship with manufacturer
     public function manufacturer(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\Manufacturer::class);
+        return $this->belongsTo(Manufacturer::class);
     }
 }
