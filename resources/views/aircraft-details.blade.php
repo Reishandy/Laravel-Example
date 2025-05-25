@@ -3,11 +3,13 @@
         Entry page
     </x-slot:heading>
 
-    <h2 class="font-bold text-2xl">{{ $aircraft_details->code.' '.$aircraft_details->name}}</h2>
+    <h2 class="font-bold text-2xl">{{ $aircraft->code.' '.$aircraft->name}}</h2>
     <ul>
-        <li>Designation: {{ $aircraft_details->code }}</li>
-        <li>Name: {{ $aircraft_details->name }}</li>
-        <li>Type: {{ $aircraft_details->type }}</li>
-        <li>Manufacturer: {{ $manufacturer->name }} - {{ $manufacturer->country }}</li>
+        <li>Designation: {{ $aircraft->code }}</li>
+        <li>Name: {{ $aircraft->name }}</li>
+        <li>Type: {{ $aircraft->type }}</li>
+        <li>Manufacturer: {{ $aircraft->manufacturer->name }} - {{ $aircraft->manufacturer->country }}</li>
     </ul>
+
+    <p>Tags: {{ $aircraft->tags->pluck('name')->implode(', ') }}</p>
 </x-layout>

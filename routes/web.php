@@ -20,13 +20,10 @@ Route::get('/aircraft', function () {
 
 Route::get('/aircraft/{id}', function ($id){
     // Laravel's Array operator
-    $aircraft_details = Aircraft::find($id);
-    if (! $aircraft_details) abort(404);
+    $aircraft = Aircraft::find($id);
+    if (! $aircraft) abort(404);
 
-    return view('aircraft-details', [
-        'aircraft_details' => $aircraft_details,
-        'manufacturer' => $aircraft_details->manufacturer
-    ]);
+    return view('aircraft-details', ['aircraft' => $aircraft]);
 });
 
 Route::get('/welcome', function () {
