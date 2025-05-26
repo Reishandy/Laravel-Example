@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Manufacturer;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +15,7 @@ return new class extends Migration
         Schema::create('aircraft', function (Blueprint $table) {
             $table->id();
 //            $table->unsignedBigInteger('manufacturer_id');
-            $table->foreignIdFor(\App\Models\Manufacturer::class);
+            $table->foreignIdFor(Manufacturer::class);
             $table->string('code')->unique();
             $table->string('name');
             $table->string('type');

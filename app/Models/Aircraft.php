@@ -12,7 +12,7 @@ class Aircraft extends Model
     use HasFactory;
 
 //    protected $table = 'aircraft'; // Only if the table name is different from class name, don't do this normally
-    protected $fillable = ['code', 'name', 'type'];
+    protected $fillable = ['manufacturer_id', 'code', 'name', 'type'];
 
     // Relationships
     public function manufacturer(): BelongsTo

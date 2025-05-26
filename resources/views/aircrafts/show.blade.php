@@ -11,7 +11,7 @@
         <li>Manufacturer:
             <a href="/manufacturer/{{ $aircraft->manufacturer->id }}"
                class="text-blue-500 hover:underline">{{ $aircraft->manufacturer->name }}</a>
-            - {{ $aircraft->manufacturer->country }}</li>
+        </li>
     </ul>
 
     <p>Tags: {{ $aircraft->tags->pluck('name')->implode(', ') }}</p>

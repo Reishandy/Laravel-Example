@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Aircraft;
 use App\Models\Manufacturer;
+use App\Models\TypePrefix;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -26,16 +27,7 @@ class AircraftFactory extends Factory
             static::$excludedCodes = Aircraft::pluck('code')->toArray();
         }
 
-        $typePrefixes = [
-            'fighter' => 'F-',
-            'attack' => 'A-',
-            'multirole' => 'F/A-',
-            'bomber' => 'B-',
-            'cargo' => 'C-',
-            'trainer' => 'T-',
-            'tanker' => 'KC-',
-            'reconnaissance' => 'R-',
-        ];
+        $typePrefixes = TypePrefix::all();
 
         $type = $this->faker->randomElement(array_keys($typePrefixes));
         $prefix = $typePrefixes[$type];

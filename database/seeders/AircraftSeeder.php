@@ -122,6 +122,9 @@ class AircraftSeeder extends Seeder
             ['code' => 'P-8A', 'name' => 'Poseidon', 'type' => 'reconnaissance'],
         ];
 
+        // Create some new fictional ones first
+        Aircraft::factory(50)->create();
+
         // Dynamically assign the manufacturer id
         foreach ($aircrafts as $aircraft) {
             $manufacturerName = $manufacturerMap[$aircraft['code']] ?? null;
@@ -131,8 +134,5 @@ class AircraftSeeder extends Seeder
                 $aircraft
             );
         }
-
-        // Also create some new fictional ones
-        Aircraft::factory(50)->create();
     }
 }
