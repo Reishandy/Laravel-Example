@@ -1,6 +1,6 @@
 <x-layout>
     <x-slot:heading>
-        List page
+        Aircraft page
     </x-slot:heading>
 
     <div class="space-y-4">
@@ -19,13 +19,6 @@
                 </div>
             </div>
         @endforeach
-
-        <div class="flex justify-end">
-            <a href="/aircraft/create"
-               class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                Create
-            </a>
-        </div>
 
         <div>
             {{ $aircrafts->links() }}

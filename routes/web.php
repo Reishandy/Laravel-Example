@@ -56,15 +56,24 @@ Route::get('/aircraft/{id}', function ($id) {
 });
 
 Route::post('/aircraft', function () {
+    // Update the code first
     $typePrefixes = TypePrefix::all();
+    $fullCode = strtoupper($typePrefixes[request('type')] . request('code'));
+    request()->merge(['code' => $fullCode]); // Use merge to update
 
-    // TODO: validate
-    // TODO: validate duplicate
+    request()->validate([
+        'manufacturer_id' => ['required', 'exists:manufacturers,id'],
+        'code' => ['required', 'unique:aircraft,code', 'regex:/^[A-Z\/\-]+-\d+$/', 'max:16'], // For regex number after -
+        'name' => ['required', 'max:64'],
+        'type' => ['required', 'in:' . implode(',', array_keys($typePrefixes))],
+        'tags' => ['required', 'array', 'min:1'],
+        'tags.*' => ['exists:tags,id'] // content of array
+    ]);
 
     // Create aircraft entry
     $aircraft = Aircraft::create([
         'manufacturer_id' => request('manufacturer_id'),
-        'code' => $typePrefixes[request('type')].request('code'),
+        'code' => $fullCode,
         'name' => request('name'),
         'type' => request('type')
     ]);

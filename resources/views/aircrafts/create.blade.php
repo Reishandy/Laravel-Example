@@ -11,6 +11,26 @@
                 <h2 class="text-base/7 font-semibold text-gray-900">Add a new Aircraft</h2>
                 <p class="mt-1 text-sm/6 text-gray-600">Input the Aircraft details below to be added.</p>
 
+                @if($errors->any())
+                    <div class="w-full text-white bg-red-500 mt-7">
+                        <div class="container flex flex-col items-center justify-center px-6 py-4 mx-auto">
+                            <div class="flex items-center justify-center mb-2">
+                                <svg viewBox="0 0 40 40" class="w-6 h-6 fill-current mr-2">
+                                    <path
+                                        d="M20 3.36667C10.8167 3.36667 3.3667 10.8167 3.3667 20C3.3667 29.1833 10.8167 36.6333 20 36.6333C29.1834 36.6333 36.6334 29.1833 36.6334 20C36.6334 10.8167 29.1834 3.36667 20 3.36667ZM19.1334 33.3333V22.9H13.3334L21.6667 6.66667V17.1H27.25L19.1334 33.3333Z">
+                                    </path>
+                                </svg>
+                                <span class="font-semibold">Please fix the following errors:</span>
+                            </div>
+                            <ul class="list-disc pl-5 text-sm text-white">
+                                @foreach($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="sm:col-span-4">
                         <label for="type" class="block text-sm/6 font-medium text-gray-900">Code</label>
@@ -25,8 +45,11 @@
                                 </select>
                                 <input type="text" name="code" id="code"
                                        class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-                                       placeholder="16">
+                                       placeholder="16" required>
                             </div>
+                            @error('code')
+                                <p class="text-xs text-red-500 font-semibold mt-2">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
@@ -37,7 +60,7 @@
                                 class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                                 <input type="text" name="name" id="name"
                                        class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-                                       placeholder="Fighting Falcon">
+                                       placeholder="Fighting Falcon" required>
                             </div>
                         </div>
                     </div>
