@@ -3,7 +3,7 @@
         Edit {{ $aircraft->code }} page
     </x-slot:heading>
 
-    <form method="POST" action="/aircraft/{{ $aircraft->id }}">
+    <form method="POST" action="/aircraft/{{ $aircraft->code }}">
         @csrf
         @method('PATCH')
 
@@ -110,7 +110,7 @@
             </div>
 
             <div class="flex items-center gap-x-6">
-                <a href="/aircraft/{{ $aircraft->id }}"
+                <a href="/aircraft/{{ $aircraft->code }}"
                    class="text-sm/6 font-semibold text-gray-500 hover:text-gray-500">Cancel</a>
                 <button type="submit"
                         class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
@@ -120,7 +120,7 @@
         </div>
     </form>
 
-    <form method="POST" action="/aircraft/{{ $aircraft->id }}" id="delete-form" class="hidden">
+    <form method="POST" action="/aircraft/{{ $aircraft->code }}" id="delete-form" class="hidden">
         @csrf
         @method('DELETE')
     </form>

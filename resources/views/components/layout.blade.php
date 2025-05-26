@@ -25,6 +25,7 @@
                             <x-nav-link href="/" :active="request()->is('/')">Hello</x-nav-link>
                             <x-nav-link href="/what" :active="request()->is('what')">What</x-nav-link>
                             <x-nav-link href="/aircraft" :active="request()->is('aircraft')">Aircraft</x-nav-link>
+                            <x-nav-link href="/manufacturer" :active="request()->is('manufacturer')">Manufacturers</x-nav-link>
                             <x-nav-link href="/welcome"> Welcome</x-nav-link>
                         </div>
                     </div>
@@ -89,6 +90,7 @@
                 <x-nav-link href="/" :active="request()->is('/')">Hello</x-nav-link>
                 <x-nav-link href="/what" :active="request()->is('what')">What</x-nav-link>
                 <x-nav-link href="/aircraft" :active="request()->is('aircraft')">Aircraft</x-nav-link>
+                <x-nav-link href="/manufacturer" :active="request()->is('manufacturer')">Manufacturers</x-nav-link>
                 <x-nav-link href="/welcome"> Welcome</x-nav-link>
             </div>
             <div class="border-t border-gray-700 pt-4 pb-3">
@@ -126,9 +128,9 @@
                     <x-button href="/aircraft/create">Add</x-button>
                 @endif
 
-                @props(['id' => false])
-                @if(preg_match('/^aircraft\/\d+$/', request()->path()))
-                    <x-button href="/aircraft/{{ $id }}/edit">Edit</x-button>
+                @props(['code' => false])
+                @if(request()->is('aircraft/*') && !request()->is('aircraft/create') && !request()->is('aircraft/*/edit'))
+                    <x-button href="/aircraft/{{ request()->segment(2) }}/edit">Edit</x-button>
                 @endif
             </div>
         </div>

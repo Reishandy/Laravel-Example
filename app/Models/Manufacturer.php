@@ -11,6 +11,11 @@ class Manufacturer extends Model
     /** @use HasFactory<\Database\Factories\ManufacturerFactory> */
     use HasFactory;
 
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
+
     public function aircrafts(): HasMany {
         return $this->hasMany(Aircraft::class);
     }

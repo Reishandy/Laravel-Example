@@ -14,6 +14,11 @@ class Aircraft extends Model
 //    protected $table = 'aircraft'; // Only if the table name is different from class name, don't do this normally
     protected $fillable = ['manufacturer_id', 'code', 'name', 'type'];
 
+    public function getRouteKeyName()
+    {
+        return 'code';
+    }
+
     // Relationships
     public function manufacturer(): BelongsTo
     {

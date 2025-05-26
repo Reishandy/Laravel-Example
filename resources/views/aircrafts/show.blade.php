@@ -1,4 +1,4 @@
-<x-layout id="{{ $aircraft->id }}">
+<x-layout id="{{ $aircraft->code }}">
     <x-slot:heading>
         Entry page
     </x-slot:heading>
@@ -9,7 +9,7 @@
         <li>Name: {{ $aircraft->name }}</li>
         <li>Type: {{ $aircraft->type }}</li>
         <li>Manufacturer:
-            <a href="/manufacturer/{{ $aircraft->manufacturer->id }}"
+            <a href="/manufacturer/{{ $aircraft->manufacturer->name }}"
                class="text-blue-500 hover:underline">{{ $aircraft->manufacturer->name }}</a>
         </li>
     </ul>

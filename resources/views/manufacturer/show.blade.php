@@ -10,7 +10,7 @@
         <li>
             Aircraft:
             @foreach($manufacturer->aircrafts as $aircraft)
-                <a href="/aircraft/{{ $aircraft->id }}" class="text-blue-500 hover:underline">
+                <a href="/aircraft/{{ $aircraft->code }}" class="text-blue-500 hover:underline">
                     {{ $aircraft->code }} {{ $aircraft->name}}@if(!$loop->last), @endif
                 </a>
             @endforeach

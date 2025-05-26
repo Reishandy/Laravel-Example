@@ -9,7 +9,7 @@ class TypePrefix
         return [
             'fighter' => 'F-',
             'attack' => 'A-',
-            'multirole' => 'F/A-',
+            'multirole' => 'FA-',
             'bomber' => 'B-',
             'cargo' => 'C-',
             'trainer' => 'T-',
