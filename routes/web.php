@@ -22,4 +22,6 @@ Route::resource('aircraft', AircraftController::class);
 //});
 
 // Manufacturer routes
-Route::resource('manufacturer', ManufacturerController::class);
+Route::resource('manufacturer', ManufacturerController::class, [
+    'only' => ['index', 'show']
+]);
