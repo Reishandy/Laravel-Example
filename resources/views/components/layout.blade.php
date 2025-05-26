@@ -121,9 +121,16 @@
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 sm:flex sm:justify-between">
             <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $heading }}</h1>
 
-            @if(request()->is('aircraft'))
-                <x-button href="/aircraft/create">Add</x-button>
-            @endif
+            <div class="mt-4 sm:mt-0">
+                @if(request()->is('aircraft'))
+                    <x-button href="/aircraft/create">Add</x-button>
+                @endif
+
+                @props(['id' => false])
+                @if(preg_match('/^aircraft\/\d+$/', request()->path()))
+                    <x-button href="/aircraft/{{ $id }}/edit">Edit</x-button>
+                @endif
+            </div>
         </div>
     </header>
 

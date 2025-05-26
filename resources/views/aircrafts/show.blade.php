@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout id="{{ $aircraft->id }}">
     <x-slot:heading>
         Entry page
     </x-slot:heading>

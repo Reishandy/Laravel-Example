@@ -1,16 +1,14 @@
 <x-layout>
     <x-slot:heading>
-        Create page
+        Edit {{ $aircraft->code }} page
     </x-slot:heading>
 
-    <form method="POST" action="/aircraft">
+    <form method="POST" action="/aircraft/{{ $aircraft->id }}">
         @csrf
+        @method('PATCH')
 
         <div class="space-y-12">
             <div class="border-b border-gray-900/10 pb-12">
-                <h2 class="text-base/7 font-semibold text-gray-900">Add a new Aircraft</h2>
-                <p class="mt-1 text-sm/6 text-gray-600">Input the Aircraft details below to be added.</p>
-
                 @if($errors->any())
                     <div class="w-full text-white bg-red-500 mt-7">
                         <div class="container flex flex-col items-center justify-center px-6 py-4 mx-auto">
@@ -40,15 +38,16 @@
                                 <select name="type" id="type"
                                         class="block bg-white border-0 py-1.5 pr-3 pl-1 text-base text-gray-900 focus:outline-none sm:text-sm/6">
                                     @foreach($typePrefixes as $type => $prefix)
-                                        <option value="{{ $type }}">{{ $prefix }}</option>
+                                        <option
+                                            value="{{ $type }}" {{ $aircraft->type == $type ? 'selected' : '' }}>{{ $prefix }}</option>
                                     @endforeach
                                 </select>
                                 <input type="text" name="code" id="code"
                                        class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-                                       placeholder="16" required>
+                                       placeholder="16" value="{{ explode("-", $aircraft->code)[1] }}" required>
                             </div>
                             @error('code')
-                                <p class="text-xs text-red-500 font-semibold mt-2">{{ $message }}</p>
+                            <p class="text-xs text-red-500 font-semibold mt-2">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
@@ -60,7 +59,7 @@
                                 class="flex items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600">
                                 <input type="text" name="name" id="name"
                                        class="block min-w-0 grow py-1.5 pr-3 pl-1 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-                                       placeholder="Fighting Falcon" required>
+                                       placeholder="Fighting Falcon" value="{{ $aircraft->name }}" required>
                             </div>
                         </div>
                     </div>
@@ -73,7 +72,8 @@
                                 <select name="manufacturer_id" id="manufacturer"
                                         class="block min-w-0 grow py-1.5 pr-3 pl-1 bg-white border-0 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6">
                                     @foreach($manufacturers as $manufacturer)
-                                        <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
+                                        <option
+                                            value="{{ $manufacturer->id }}" {{ $aircraft->manufacturer_id == $manufacturer->id ? 'selected' : '' }}>{{ $manufacturer->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -85,10 +85,13 @@
                         <div class="mt-2">
                             <div
                                 class="flex flex-wrap gap-3 items-center rounded-md bg-white pl-3 outline-1 -outline-offset-1 outline-gray-300 focus-within:outline-2 focus-within:-outline-offset-2 focus-within:outline-indigo-600 py-2">
+                                @php
+                                    $selectedTags = $aircraft->tags->pluck('id')->toArray();
+                                @endphp
                                 @foreach($tags as $tag)
                                     <label class="inline-flex items-center text-sm text-gray-900 mr-4">
                                         <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
-                                               class="form-checkbox text-indigo-600 focus:ring-indigo-500 rounded border-gray-300 mr-1">
+                                            {{ in_array($tag->id, $selectedTags) ? 'checked' : '' }}>
                                         {{ $tag->name }}
                                     </label>
                                 @endforeach
@@ -99,13 +102,27 @@
             </div>
         </div>
 
-        <div class="mt-6 flex items-center justify-end gap-x-6">
-            <a href="/aircraft" class="text-sm/6 font-semibold text-gray-900 hover:text-gray-500">Cancel</a>
-            <button type="submit"
-                    class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-                Save
-            </button>
+        <div class="mt-6 flex items-center justify-between gap-x-6">
+            <div>
+                <button form="delete-form" type="submit" class="text-sm/6 font-semibold text-red-500 hover:text-red-700">
+                    Delete
+                </button>
+            </div>
+
+            <div class="flex items-center gap-x-6">
+                <a href="/aircraft/{{ $aircraft->id }}"
+                   class="text-sm/6 font-semibold text-gray-500 hover:text-gray-500">Cancel</a>
+                <button type="submit"
+                        class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                    Update
+                </button>
+            </div>
         </div>
+    </form>
+
+    <form method="POST" action="/aircraft/{{ $aircraft->id }}" id="delete-form" class="hidden">
+        @csrf
+        @method('DELETE')
     </form>
 
 </x-layout>
