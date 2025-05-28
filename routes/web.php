@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AircraftController;
 use App\Http\Controllers\ManufacturerController;
+use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'hello', ['data' => 'something', 'name' => 'Michiru']);
+Route::view('/', 'hello', ['data' => 'something'])->name('home');
 Route::view('/what', 'what');
 Route::view('/welcome', 'welcome');
 
@@ -25,3 +27,10 @@ Route::resource('aircraft', AircraftController::class);
 Route::resource('manufacturer', ManufacturerController::class, [
     'only' => ['index', 'show']
 ]);
+
+// Auth
+Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+Route::post('/register', [RegisteredUserController::class, 'store']);
+
+Route::get('/login', [SessionController::class, 'create'])->name('login');
+Route::post('/login', [SessionController::class, 'store']);
