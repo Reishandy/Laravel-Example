@@ -6,6 +6,7 @@ use App\Models\Aircraft;
 use App\Models\Manufacturer;
 use App\Models\Tag;
 use App\Models\TypePrefix;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
@@ -56,7 +57,7 @@ class AircraftController extends Controller
     }
 
     // POST
-    public function store(): Redirector
+    public function store(): RedirectResponse
     {
         // Update the code first
         $typePrefixes = TypePrefix::all();
@@ -89,7 +90,7 @@ class AircraftController extends Controller
         return redirect('/aircraft');
     }
 
-    public function update(Aircraft $aircraft): Redirector
+    public function update(Aircraft $aircraft): RedirectResponse
     {
         // Authorize (not now)
 
@@ -122,7 +123,7 @@ class AircraftController extends Controller
         return redirect('/aircraft/' . $aircraft->code);
     }
 
-    public function destroy(Aircraft $aircraft): Redirector
+    public function destroy(Aircraft $aircraft): RedirectResponse
     {
         // Authorize (not now)
 
