@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 class SessionController extends Controller
@@ -25,10 +28,25 @@ class SessionController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     * @throws ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
-        dd($request->all());
+        $attributes = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ]);
+
+        // Use this do not straight login, login is for after register. returns a boolean
+        if (!Auth::attempt($attributes)) {
+            throw ValidationException::withMessages([
+                'email' => 'Sorry, those credentials do not match' // Where to associate the error
+            ]);
+        }
+
+        $request->session()->regenerate(); // Security measure must be here
+
+        return redirect(route('home'));
     }
 
     /**
@@ -58,8 +76,10 @@ class SessionController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(): RedirectResponse
     {
-        //
+        Auth::logout();
+
+        return redirect(route('home'));
     }
 }

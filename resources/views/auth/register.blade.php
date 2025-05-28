@@ -8,19 +8,19 @@
 
         <x-form>
             <x-form-field>
-                <x-form-label for="username">Username</x-form-label>
+                <x-form-label for="name">Name</x-form-label>
                 <x-form-div>
-                    <x-form-input type="text" name="username" id="username" placeholder="Username"
-                                  required></x-form-input>
+                    <x-form-input type="text" name="name" id="name" placeholder="name"
+                                  :value="old('name')" required></x-form-input>
                 </x-form-div>
-                <x-form-error name="username"></x-form-error>
+                <x-form-error name="name"></x-form-error>
             </x-form-field>
 
             <x-form-field>
                 <x-form-label for="email">Email</x-form-label>
                 <x-form-div>
                     <x-form-input type="email" name="email" id="email" placeholder="example@example.com"
-                                  required></x-form-input>
+                                  :value="old('email')" required></x-form-input>
                 </x-form-div>
                 <x-form-error name="email"></x-form-error>
             </x-form-field>

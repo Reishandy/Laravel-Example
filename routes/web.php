@@ -6,9 +6,7 @@ use App\Http\Controllers\RegisteredUserController;
 use App\Http\Controllers\SessionController;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'hello', ['data' => 'something'])->name('home');
-Route::view('/what', 'what');
-Route::view('/welcome', 'welcome');
+Route::view('/', 'hello')->name('home');
 
 // Aircraft routes
 Route::resource('aircraft', AircraftController::class);
@@ -34,3 +32,4 @@ Route::post('/register', [RegisteredUserController::class, 'store']);
 
 Route::get('/login', [SessionController::class, 'create'])->name('login');
 Route::post('/login', [SessionController::class, 'store']);
+Route::post('/logout', [SessionController::class, 'destroy'])->name('logout');

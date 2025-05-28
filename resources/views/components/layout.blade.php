@@ -1,6 +1,6 @@
 @props(['code' => false])
 
-<!doctype html>
+    <!doctype html>
 <html lang="en" class="h-full bg-gray-100">
 <head>
     <meta charset="UTF-8">
@@ -25,19 +25,42 @@
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             {{-- Using ':' befora attributes evalute thaat attributes instead of providing string --}}
                             <x-nav-link href="/" :active="request()->is('/')">Hello</x-nav-link>
-                            <x-nav-link href="/what" :active="request()->is('what')">What</x-nav-link>
                             <x-nav-link href="/aircraft" :active="request()->is('aircraft')">Aircraft</x-nav-link>
-                            <x-nav-link href="/manufacturer" :active="request()->is('manufacturer')">Manufacturers</x-nav-link>
-                            <x-nav-link href="/welcome"> Welcome</x-nav-link>
+                            <x-nav-link href="/manufacturer" :active="request()->is('manufacturer')">Manufacturers
+                            </x-nav-link>
                         </div>
                     </div>
                 </div>
                 <div class="hidden md:block">
-                    <div class="ml-4 flex items-center md:ml-6 space-x-4">
+                    <div class="flex flex-row items-center justify-end">
                         @guest
-                            <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">Log In</x-nav-link>
-                            <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">Register</x-nav-link>
+                            <div class="flex items-center md:ml-6 space-x-4">
+                                <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">Log In
+                                </x-nav-link>
+                                <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
+                                    Register
+                                </x-nav-link>
+                            </div>
                         @endguest
+
+                        @auth
+                            <div class="flex items-center justify-end">
+                                <div>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+
+                                        <x-button
+                                            class="text-red-500 dark:text-red-500 hover:bg-red-500 dark:hover:bg-red-500 dark:hover:text-white border-none">
+                                            Log Out
+                                        </x-button>
+                                    </form>
+                                </div>
+                                <div class="ml-4 text-right">
+                                    <div class="text-base/5 font-medium text-white">Ruxury</div>
+                                    <div class="text-sm font-medium text-gray-400">akbar@reishandy.my.id</div>
+                                </div>
+                            </div>
+                        @endauth
                     </div>
                 </div>
                 <div class="-mr-2 flex md:hidden">
@@ -68,22 +91,25 @@
             <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
                 <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                 <x-nav-link href="/" :active="request()->is('/')">Hello</x-nav-link>
-                <x-nav-link href="/what" :active="request()->is('what')">What</x-nav-link>
                 <x-nav-link href="/aircraft" :active="request()->is('aircraft')">Aircraft</x-nav-link>
                 <x-nav-link href="/manufacturer" :active="request()->is('manufacturer')">Manufacturers</x-nav-link>
-                <x-nav-link href="/welcome"> Welcome</x-nav-link>
             </div>
             <div class="border-t border-gray-700 pt-4 pb-3">
                 <div class="flex items-center justify-between px-5">
-                    <div class="ml-3">
-                        <div class="text-base/5 font-medium text-white">{{ $name ?? 'Ruxury' }}</div>
-                        <div class="text-sm font-medium text-gray-400">akbar@reishandy.my.id</div>
-                    </div>
+                    @auth
+                        <div class="ml-3">
+                            <div class="text-base/5 font-medium text-white">Ruxury</div>
+                            <div class="text-sm font-medium text-gray-400">akbar@reishandy.my.id</div>
+                        </div>
+                    @endauth
 
-                    <div class="ml-4 flex items-center md:ml-6 space-x-4">
+                    <div class="flex items-center md:ml-6 space-x-4">
                         @guest
-                            <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">Log In</x-nav-link>
-                            <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">Register</x-nav-link>
+                            <x-nav-link href="{{ route('login') }}" :active="request()->routeIs('login')">Log In
+                            </x-nav-link>
+                            <x-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
+                                Register
+                            </x-nav-link>
                         @endguest
                     </div>
                 </div>
