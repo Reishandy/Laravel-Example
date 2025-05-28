@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Manufacturer;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ManufacturerSeeder extends Seeder
@@ -12,9 +13,14 @@ class ManufacturerSeeder extends Seeder
      */
     public function run(): void
     {
+        // Special for Lockheed Martin
+        Manufacturer::updateOrCreate(
+            ['name' => 'Lockheed Martin'],
+            ['name' => 'Lockheed Martin', 'country' => 'United States', 'user_id' => 1]
+        );
+
         // Real aircraft manufacturer
         $manufacturers = [
-            ['name' => 'Lockheed Martin', 'country' => 'United States'],
             ['name' => 'Boeing', 'country' => 'United States'],
             ['name' => 'Northrop Grumman', 'country' => 'United States'],
             ['name' => 'McDonnell Douglas', 'country' => 'United States'],
@@ -39,7 +45,7 @@ class ManufacturerSeeder extends Seeder
         foreach ($manufacturers as $manufacturer) {
             Manufacturer::updateOrCreate(
                 ['name' => $manufacturer['name']],
-                $manufacturer
+                array_merge($manufacturer, ['user_id' => User::factory()->create()->id])
             );
         }
 

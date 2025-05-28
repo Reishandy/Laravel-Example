@@ -1,3 +1,4 @@
+@php use App\Models\Aircraft; @endphp
 @props(['code' => false])
 
     <!doctype html>
@@ -56,8 +57,8 @@
                                     </form>
                                 </div>
                                 <div class="ml-4 text-right">
-                                    <div class="text-base/5 font-medium text-white">Ruxury</div>
-                                    <div class="text-sm font-medium text-gray-400">akbar@reishandy.my.id</div>
+                                    <div class="text-base/5 font-medium text-white">{{ auth()->user()->name }}</div>
+                                    <div class="text-sm font-medium text-gray-400">{{ auth()->user()->email }}</div>
                                 </div>
                             </div>
                         @endauth
@@ -98,8 +99,8 @@
                 <div class="flex items-center justify-between px-5">
                     @auth
                         <div class="ml-3">
-                            <div class="text-base/5 font-medium text-white">Ruxury</div>
-                            <div class="text-sm font-medium text-gray-400">akbar@reishandy.my.id</div>
+                            <div class="text-base/5 font-medium text-white">{{ auth()->user()->name }}</div>
+                            <div class="text-sm font-medium text-gray-400">{{ auth()->user()->email }}</div>
                         </div>
                     @endauth
 
@@ -121,15 +122,17 @@
         <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8 sm:flex sm:justify-between">
             <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $heading }}</h1>
 
-            <div class="mt-4 sm:mt-0">
-                @if(request()->is('aircraft'))
-                    <x-button-link href="/aircraft/create">Add</x-button-link>
-                @endif
+            @auth
+                <div class="mt-4 sm:mt-0">
+                    @if(request()->is('aircraft'))
+                        <x-button-link href="/aircraft/create">Add</x-button-link>
+                    @endif
 
-                @if(request()->is('aircraft/*') && !request()->is('aircraft/create') && !request()->is('aircraft/*/edit'))
-                    <x-button-link href="/aircraft/{{ request()->segment(2) }}/edit">Edit</x-button-link>
-                @endif
-            </div>
+                    @isset($edit)
+                        {{ $edit }}
+                    @endisset
+                </div>
+            @endauth
         </div>
     </header>
 

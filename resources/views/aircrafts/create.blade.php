@@ -40,9 +40,7 @@
                 <x-form-div>
                     <select name="manufacturer_id" id="manufacturer"
                             class="block min-w-0 grow py-1.5 pr-3 pl-1 bg-white border-0 text-base text-gray-900 placeholder:text-gray-400 focus:outline-none sm:text-sm/6">
-                        @foreach($manufacturers as $manufacturer)
-                            <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
-                        @endforeach
+                        <option value="{{ $manufacturer->id }}">{{ $manufacturer->name }}</option>
                     </select>
                 </x-form-div>
                 <x-form-error name="manufacturer"></x-form-error>

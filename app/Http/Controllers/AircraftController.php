@@ -6,8 +6,10 @@ use App\Models\Aircraft;
 use App\Models\Manufacturer;
 use App\Models\Tag;
 use App\Models\TypePrefix;
+use App\Models\User;
+use \Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class AircraftController extends Controller
@@ -22,15 +24,20 @@ class AircraftController extends Controller
 
     }
 
-    public function create(): View
+    public function create(): View | RedirectResponse
     {
+        // Auth if logged in
+        if (Auth::guest()) {
+            return redirect(route('home'));
+        }
+
         $typePrefixes = TypePrefix::all();
-        $manufacturers = Manufacturer::all()->sortBy('name');
+        $manufacturer = Auth::user()->manufacturer;
         $tags = Tag::all()->sortBy('name');
 
         return view('aircrafts.create', [
             'typePrefixes' => $typePrefixes,
-            'manufacturers' => $manufacturers,
+            'manufacturer' => $manufacturer,
             'tags' => $tags
         ]);
     }
@@ -42,15 +49,19 @@ class AircraftController extends Controller
         return view('aircrafts.show', ['aircraft' => $aircraft]);
     }
 
-    public function edit(Aircraft $aircraft): View
+    public function edit(Aircraft $aircraft): View | RedirectResponse
     {
+        // Auth if you're the owner, gate so instantly when on endpoint
+        // Definition is in AppServiceProvider
+        // Gate::authorize('aircraft', $aircraft);
+
         $typePrefixes = TypePrefix::all();
-        $manufacturers = Manufacturer::all()->sortBy('name');
+        $manufacturer = Auth::user()->manufacturer;
         $tags = Tag::all()->sortBy('name');
 
         return view('aircrafts.edit', [
             'typePrefixes' => $typePrefixes,
-            'manufacturers' => $manufacturers,
+            'manufacturer' => $manufacturer,
             'tags' => $tags,
             'aircraft' => $aircraft
         ]);

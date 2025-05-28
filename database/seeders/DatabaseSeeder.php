@@ -13,6 +13,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // User for Lockheed Martin
+        User::create([
+            'name' => 'Rei Makoto',
+            'email' => 'rei@example.com',
+            'password' => '12345678'
+        ]);
+
         $this->call(ManufacturerSeeder::class);
         $this->call(TagSeeder::class);
         $this->call(AircraftSeeder::class);
