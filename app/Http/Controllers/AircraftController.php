@@ -92,10 +92,10 @@ class AircraftController extends Controller
             $aircraft->tags()->sync(request('tags'));
         }
 
-        // Send email
-        Mail::to($aircraft->manufacturer->user)->queue(
-            new AircraftAdded($aircraft)
-        );
+//        // Send email, needs to run php artisan queue worker
+//        Mail::to($aircraft->manufacturer->user)->queue(
+//            new AircraftAdded($aircraft)
+//        );
 
         return redirect('/aircraft');
     }
