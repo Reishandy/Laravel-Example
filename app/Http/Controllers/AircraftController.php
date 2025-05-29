@@ -93,7 +93,7 @@ class AircraftController extends Controller
         }
 
         // Send email
-        Mail::to($aircraft->manufacturer->user)->send(
+        Mail::to($aircraft->manufacturer->user)->queue(
             new AircraftAdded($aircraft)
         );
 
