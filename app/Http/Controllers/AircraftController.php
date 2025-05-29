@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AircraftAdded;
 use App\Models\Aircraft;
-use App\Models\Manufacturer;
 use App\Models\Tag;
 use App\Models\TypePrefix;
-use App\Models\User;
-use \Illuminate\Support\Facades\Gate;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 
 class AircraftController extends Controller
@@ -24,13 +23,8 @@ class AircraftController extends Controller
 
     }
 
-    public function create(): View | RedirectResponse
+    public function create(): View|RedirectResponse
     {
-        // Auth if logged in
-        if (Auth::guest()) {
-            return redirect(route('home'));
-        }
-
         $typePrefixes = TypePrefix::all();
         $manufacturer = Auth::user()->manufacturer;
         $tags = Tag::all()->sortBy('name');
@@ -49,7 +43,7 @@ class AircraftController extends Controller
         return view('aircrafts.show', ['aircraft' => $aircraft]);
     }
 
-    public function edit(Aircraft $aircraft): View | RedirectResponse
+    public function edit(Aircraft $aircraft): View|RedirectResponse
     {
         // Auth if you're the owner, gate so instantly when on endpoint
         // Definition is in AppServiceProvider
@@ -97,6 +91,11 @@ class AircraftController extends Controller
         if (request('tags')) {
             $aircraft->tags()->sync(request('tags'));
         }
+
+        // Send email
+        Mail::to($aircraft->manufacturer->user)->send(
+            new AircraftAdded($aircraft)
+        );
 
         return redirect('/aircraft');
     }
